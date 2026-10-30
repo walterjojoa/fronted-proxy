@@ -110,7 +110,7 @@ export default function ChatPanel({
         <div className="banner banner--warning" role="status">
           <Clock size={18} />
           <div className="banner-text">
-            <strong>Rate limit reached.</strong> You can send again in{' '}
+            <strong>Rate limit reached.</strong> <span>You can send again in</span>{' '}
             <span className="mono">{formatCountdown(retryIn)}</span>
           </div>
         </div>
@@ -144,19 +144,24 @@ export default function ChatPanel({
         />
         <div className="composer-footer">
           <TokenEstimator prompt={prompt} tokensRemaining={tokensRemaining} maxLength={MAX_PROMPT_LENGTH} />
+          {/* Each state is wrapped in its own element: swapping bare text nodes breaks
+              React when a browser extension (e.g. a translator) has modified them */}
           <button type="submit" className="btn btn-primary send-button" disabled={!canSend}>
             {sending ? (
-              <>
-                <LoaderCircle size={17} className="spin" /> Generating
-              </>
+              <span key="sending" className="btn-content">
+                <LoaderCircle size={17} className="spin" />
+                <span>Generating</span>
+              </span>
             ) : rateLimited ? (
-              <>
-                <Clock size={17} /> <span className="mono">{formatCountdown(retryIn)}</span>
-              </>
+              <span key="limited" className="btn-content">
+                <Clock size={17} />
+                <span className="mono">{formatCountdown(retryIn)}</span>
+              </span>
             ) : (
-              <>
-                Send <Send size={16} />
-              </>
+              <span key="idle" className="btn-content">
+                <span>Send</span>
+                <Send size={16} />
+              </span>
             )}
           </button>
         </div>

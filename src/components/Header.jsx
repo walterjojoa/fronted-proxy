@@ -17,7 +17,7 @@ export default function Header({ userId, plan, connected, onLogout }) {
       <div className="header-actions">
         <span className={`connection ${connected ? 'connection--on' : ''}`}>
           <span className="connection-dot" />
-          {connected ? 'API online' : 'Connecting…'}
+          <span>{connected ? 'API online' : 'Connecting…'}</span>
         </span>
         {plan && <PlanBadge plan={plan} />}
         <div className="user-chip">

@@ -5,9 +5,10 @@ export default function PlanBadge({ plan, size = 'md' }) {
   const Icon = config.icon;
 
   return (
-    <span className={`plan-badge plan-badge--${config.id.toLowerCase()} plan-badge--${size}`}>
+    // key: the badge is replaced as a whole when the plan changes
+    <span key={config.id} className={`plan-badge plan-badge--${config.id.toLowerCase()} plan-badge--${size}`}>
       <Icon size={size === 'lg' ? 16 : 13} />
-      {config.id}
+      <span>{config.id}</span>
     </span>
   );
 }

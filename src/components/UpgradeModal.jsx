@@ -139,7 +139,7 @@ export default function UpgradeModal({ reason, currentPlan, userId, onClose, onU
             </div>
 
             <button type="button" className="btn btn-primary btn-block" disabled={!selected} onClick={() => setStep('pay')}>
-              Continue with {selected?.name}
+              <span>Continue with {selected?.name}</span>
             </button>
           </>
         )}
@@ -225,13 +225,15 @@ export default function UpgradeModal({ reason, currentPlan, userId, onClose, onU
               </button>
               <button type="submit" className="btn btn-primary" disabled={step === 'processing'}>
                 {step === 'processing' ? (
-                  <>
-                    <LoaderCircle size={17} className="spin" /> Processing payment…
-                  </>
+                  <span key="processing" className="btn-content">
+                    <LoaderCircle size={17} className="spin" />
+                    <span>Processing payment…</span>
+                  </span>
                 ) : (
-                  <>
-                    <Lock size={16} /> Pay ${selected.price}
-                  </>
+                  <span key="pay" className="btn-content">
+                    <Lock size={16} />
+                    <span>Pay ${selected.price}</span>
+                  </span>
                 )}
               </button>
             </div>
